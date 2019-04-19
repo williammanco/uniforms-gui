@@ -46,6 +46,8 @@ if ( Object.assign === undefined ) {
 
 		Object.assign = function ( target ) {
 
+			'use strict';
+
 			if ( target === undefined || target === null ) {
 
 				throw new TypeError( 'Cannot convert undefined or null to object' );
@@ -536,7 +538,7 @@ var T = {
         var s = 40;//stroke
         var r =( w-s )*0.5;
         var mid = w*0.5;
-        var n = 24, nudge = 8 / r / n * Math.PI, a1 = 0;
+        var n = 24, nudge = 8 / r / n * Math.PI, a1 = 0, d1;
         var am, tan, d2, a2, ar, i, j, path, ccc;
         var color = [];
         
@@ -572,6 +574,7 @@ var T = {
             }
             a1 = a2 - nudge; 
             color[0] = color[1];
+            d1 = d2;
         }
 
         var br = (128 - s ) + 2;
@@ -5801,71 +5804,6 @@ Object.assign( Gui.prototype, {
 
 } );
 
-class UniformsGui {
-  constructor(options, titleOptions) {
-    this.ui = new Gui(Object.assign({
-      bg: 'rgba(0,0,0,0.9)',
-    }, options));
+var REVISION = '2.0';
 
-    this.titleOptions = titleOptions;
-    this.controls = [];
-  }
-
-  initFrom(program) {
-    Object.keys(program.uniforms).forEach((uniform) => {
-      const { value, controls } = program.uniforms[uniform];
-
-      if (Array.isArray(value)) {
-        this.controls.push({
-          type: 'number',
-          name: uniform,
-          ...controls,
-          value,
-        });
-      } else if (typeof value === 'number') {
-        this.controls.push({
-          type: 'slide',
-          name: uniform,
-          min: 0,
-          max: 1,
-          precision: 2,
-          step: 0.01,
-          ...controls,
-          value,
-        });
-      }
-    });
-    this.program = program;
-  }
-
-  draw() {
-    this.ui.add('title', Object.assign({
-      name: 'Uniforms GUI',
-      titleColor: '#D4B87B',
-      h: 30,
-    }, this.titleOptions));
-
-    Object.keys(this.controls).forEach((item) => {
-      const {
-        type, name, value, ...options
-      } = this.controls[item];
-
-      this.ui.add(type, {
-        name,
-        ...options,
-        callback: this.update.bind(this, name),
-        value,
-      });
-    });
-  }
-
-  clear() {
-    this.ui.clear();
-  }
-
-  update(name, e) {
-    this.program.uniforms[name].value = e;
-  }
-}
-
-export default UniformsGui;
+export { REVISION, Tools, Gui, Proto, add, Bool, Button, Circular, Color, Fps, Group, Joystick, Knob, List, Numeric, Slide, TextInput, Title };

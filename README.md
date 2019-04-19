@@ -10,7 +10,6 @@ GUI controls from uil.js
 ## Install
 
 ```sh
-yarn add uil
 yarn add uniforms-gui
 ```
 
@@ -36,6 +35,12 @@ export default () => {
               max: 5,
             }, // add controls options
           },
+          uColor: {
+            value: [0.0, 0.0, 0.0],
+            controls: {
+              type: "color",
+            },
+          },
           uTime: { value: 0.0 },
         },
       });
@@ -48,6 +53,12 @@ export default () => {
 
     // gui.clear(); // for destroy all
 }
+```
+
+## Controls options
+
+```javascript
+...soon
 ```
 
 ## Build

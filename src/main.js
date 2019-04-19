@@ -1,4 +1,4 @@
-import { Gui } from 'uil';
+import { Gui } from '../vendors/uil.module';
 
 class UniformsGui {
   constructor(options, titleOptions) {
