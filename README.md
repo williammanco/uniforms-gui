@@ -2,6 +2,8 @@
 
 Small utility to transform all uniforms of selected program to GUI controls.
 
+**DEMO** https://codesandbox.io/s/4xn7po9l90
+
 GUI controls from uil.js
 
 [uniforms-gui](https://github.com/williammanco/uniforms-gui)
