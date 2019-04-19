@@ -1,11 +1,8 @@
 {
   "name": "uniforms-gui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Small utility to transform all uniforms of selected program to GUI controls.",
   "main": "dist/bundle.esm.js",
-  "jsnext:main": "dist/bundle.esm.js",
-  "module": "dist/bundle.esm.js",
-  "browser": "dist/bundle.iife.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup src/main.js -o ./dist/bundle.esm.js -f esm -g uil:UIL && rollup src/main.js -o ./dist/bundle.iife.js -f iife -g uil:UIL --name \"uniformsgui\""
