@@ -1,0 +1,43 @@
+{
+  "name": "uniforms-gui",
+  "version": "0.0.1",
+  "description": "Small utility to transform all uniforms of selected program to GUI controls.",
+  "main": "dist/bundle.esm.js",
+  "jsnext:main": "dist/bundle.esm.js",
+  "module": "dist/bundle.esm.js",
+  "browser": "dist/bundle.iife.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup src/main.js -o ./dist/bundle.esm.js -f esm -g uil:UIL && rollup src/main.js -o ./dist/bundle.iife.js -f iife -g uil:UIL --name \"uniformsgui\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williammanco/uniforms-gui.git"
+  },
+  "keywords": [
+    "uniforms",
+    "GUI",
+    "controls",
+    "program",
+    "material"
+  ],
+  "author": {
+    "name": "William Manco",
+    "email": "wmanco88@gmail.com",
+    "url": "https://williamman.co"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/williammanco/uniforms-gui/issues"
+  },
+  "homepage": "https://github.com/williammanco/uniforms-gui#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "rollup": "^1.9.0"
+  },
+  "peerDependencies": {
+    "uil": "^1.0.1"
+  }
+}
