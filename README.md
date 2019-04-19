@@ -2,12 +2,15 @@
 
 Small utility to transform all uniforms of selected program to GUI controls.
 
+GUI controls from uil.js
+
 [uniforms-gui](https://github.com/williammanco/uniforms-gui)
 
 
 ## Install
 
 ```sh
+yarn add uil
 yarn add uniforms-gui
 ```
 
