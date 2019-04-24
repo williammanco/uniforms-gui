@@ -32,6 +32,13 @@ class UniformsGui {
           ...controls,
           value,
         });
+      } else if (typeof value === 'boolean') {
+        this.controls.push({
+          type: 'bool',
+          name: uniform,
+          ...controls,
+          value,
+        });
       }
     });
     this.program = program;
