@@ -28,6 +28,8 @@ export default () => {
         },
       });
 
+    material.uniformsNeedUpdate = true
+
     gui.initFrom(material);
     gui.draw();
     //...
@@ -88,6 +90,8 @@ export default () => {
           },
         },
       });
+
+    material.uniformsNeedUpdate = true
 
     gui.initFrom(material);
     gui.clear(); // to destroy all
