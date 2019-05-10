@@ -1,9 +1,9 @@
 # uniforms-gui
 
-Small utility to transform all uniforms of selected program to GUI controls.
-GUI controls from [uil.js](https://github.com/lo-th/uil)
+Small utility to transform all uniforms to a GUI controls.
+GUI from [uil.js](https://github.com/lo-th/uil)
 
-**Codesandbox DEMO** https://codesandbox.io/s/4xn7po9l90
+[**Codesandbox DEMO**](https://codesandbox.io/s/4xn7po9l90)
 
 [Github repo](https://github.com/williammanco/uniforms-gui)
 
@@ -30,7 +30,7 @@ export default () => {
 
     material.uniformsNeedUpdate = true
 
-    gui.initFrom(material);
+    gui.add(material);
     gui.draw();
     //...
 }
@@ -93,8 +93,19 @@ export default () => {
 
     material.uniformsNeedUpdate = true
 
-    gui.initFrom(material);
-    gui.clear(); // to destroy all
+    const material2 = new THREE.RawShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        uniforms: {
+          uBool: { value: false },
+        },
+      });
+
+    material2.uniformsNeedUpdate = true
+
+    gui.add(material, 'My GUI');
+    gui.add(material2, 'My GUI 2');
+    // gui.clear(); // to destroy all
     gui.draw();
     //...
 }
