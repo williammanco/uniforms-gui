@@ -5802,16 +5802,30 @@ Object.assign( Gui.prototype, {
 } );
 
 class UniformsGui {
-  constructor(options, titleOptions) {
-    this.ui = new Gui(Object.assign({
-      bg: 'rgba(0,0,0,0.9)',
-    }, options));
-
+  constructor(options, titleOptions, debug) {
+    this.debug = options;
     this.titleOptions = titleOptions;
+    this.debug = debug;
     this.controls = [];
+    this.programs = [];
+    this.uis = [];
+  }
+
+  addUI() {
+    this.uis.push(
+      new Gui(Object.assign({
+        bg: 'rgba(0,0,0,0.9)',
+      }, this.options)),
+    );
   }
 
   initFrom(program) {
+    this.addUI();
+    this.add(program);
+  }
+
+  add(program) {
+    this.addUI();
     Object.keys(program.uniforms).forEach((uniform) => {
       const { value, controls } = program.uniforms[uniform];
 
@@ -5842,36 +5856,44 @@ class UniformsGui {
         });
       }
     });
-    this.program = program;
+    this.programs.push(program);
   }
 
   draw() {
-    this.ui.add('title', Object.assign({
-      name: 'Uniforms GUI',
-      titleColor: '#D4B87B',
-      h: 30,
-    }, this.titleOptions));
+    this.uis.forEach((ui) => {
+      ui.add('title', Object.assign({
+        name: 'Uniforms GUI',
+        titleColor: '#D4B87B',
+        h: 30,
+      }, this.titleOptions));
 
-    Object.keys(this.controls).forEach((item) => {
-      const {
-        type, name, value, ...options
-      } = this.controls[item];
+      Object.keys(this.controls).forEach((item) => {
+        const {
+          type, name, value, ...options
+        } = this.controls[item];
 
-      this.ui.add(type, {
-        name,
-        ...options,
-        callback: this.update.bind(this, name),
-        value,
+        this.ui.add(type, {
+          name,
+          ...options,
+          callback: this.update.bind(this, name),
+          value,
+        });
       });
     });
   }
 
   clear() {
-    this.ui.clear();
+    this.uis.forEach((ui) => {
+      ui.clear();
+    });
   }
 
   update(name, e) {
-    this.program.uniforms[name].value = e;
+    this.programs.forEach((program) => {
+      // eslint-disable-next-line no-param-reassign
+      if (program.uniforms[name]) program.uniforms[name].value = e;
+    });
+    if (this.debug) window.console.log(name, e);
   }
 }
 

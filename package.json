@@ -5,7 +5,7 @@
   "main": "dist/bundle.esm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup src/main.js -o ./dist/bundle.esm.js -f esm -g uil:UIL && rollup src/main.js -o ./dist/bundle.iife.js -f iife -g uil:UIL --name \"uniformsgui\""
+    "build": "rollup src/index.js -o ./dist/bundle.esm.js -f esm -g uil:UIL && rollup src/index.js -o ./dist/bundle.iife.js -f iife -g uil:UIL --name \"uniformsgui\""
   },
   "repository": {
     "type": "git",
