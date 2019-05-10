@@ -74,7 +74,6 @@ class UniformsGui {
   initFrom(program) {
     this.programs = [];
     this.uis = [];
-    this.init();
     this.add(program);
   }
 
