@@ -11,8 +11,11 @@ class UniformsGui {
 
   init(options) {
     if (!this.options) this.options = {};
-    const { w } = this.options;
-    this.options.css = `left: ${((w || 240) + 10) * this.uis.length}px`;
+    const { w, css } = this.options;
+
+    if (!css) {
+      this.options.css = `left: ${((w || 240) + 10) * this.uis.length}px`;
+    }
 
     this.uis.push(
       new Gui(Object.assign({
