@@ -5912,6 +5912,12 @@ var uniformsgui = (function () {
        });
      }
 
+     destroy() {
+       this.uis.forEach((ui) => {
+         ui.dispose();
+       });
+     }
+
      update(name, program, e) {
        // eslint-disable-next-line no-param-reassign
        program.uniforms[name].value = e;
