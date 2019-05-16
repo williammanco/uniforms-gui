@@ -5812,8 +5812,11 @@ class UniformsGui {
 
   init(options) {
     if (!this.options) this.options = {};
-    const { w } = this.options;
-    this.options.css = `left: ${((w || 240) + 10) * this.uis.length}px`;
+    const { w, css } = this.options;
+
+    if (!css) {
+      this.options.css = `left: ${((w || 240) + 10) * this.uis.length}px`;
+    }
 
     this.uis.push(
       new Gui(Object.assign({
@@ -5838,15 +5841,20 @@ class UniformsGui {
     const control = [];
     Object.keys(program.uniforms).forEach((uniform) => {
       const { value, controls } = program.uniforms[uniform];
+      const { name } = value.constructor;
+      const isVector = name === 'Vector2'
+      || name === 'Vector3'
+      || name === 'Vector4';
 
-      if (Array.isArray(value)) {
+      if (Array.isArray(value) || isVector) {
+        const normalizedValue = isVector ? value.toArray() : value;
         control.push({
           type: 'number',
           name: uniform,
           ...controls,
-          value,
+          value: normalizedValue,
         });
-      } else if (typeof value === 'number') {
+      } else if (name === 'Number') {
         control.push({
           type: 'slide',
           name: uniform,
@@ -5857,7 +5865,7 @@ class UniformsGui {
           ...controls,
           value,
         });
-      } else if (typeof value === 'boolean') {
+      } else if (name === 'Boolean') {
         control.push({
           type: 'bool',
           name: uniform,
