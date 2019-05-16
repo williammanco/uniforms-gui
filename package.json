@@ -1,6 +1,6 @@
 {
   "name": "uniforms-gui",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Small utility to transform all uniforms of selected program to GUI controls.",
   "main": "dist/bundle.esm.js",
   "scripts": {
