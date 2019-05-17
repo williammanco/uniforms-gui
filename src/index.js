@@ -77,6 +77,8 @@ class UniformsGui {
     this.setTitle(title, control);
     this.controls.push(control);
     this.programs.push(program);
+
+    return this.uis[this.controls.length - 1];
   }
 
   initFrom(program) {
