@@ -5842,45 +5842,50 @@ var uniformsgui = (function () {
        this.init(options);
 
        const control = [];
-       Object.keys(program.uniforms).forEach((uniform) => {
-         const { value, controls } = program.uniforms[uniform];
-         const { name } = value.constructor;
-         const isVector = name === 'Vector2'
-         || name === 'Vector3'
-         || name === 'Vector4';
 
-         if (Array.isArray(value) || isVector) {
-           const normalizedValue = isVector ? value.toArray() : value;
-           control.push({
-             type: 'number',
-             name: uniform,
-             ...controls,
-             value: normalizedValue,
-           });
-         } else if (name === 'Number') {
-           control.push({
-             type: 'slide',
-             name: uniform,
-             min: 0,
-             max: 1,
-             precision: 2,
-             step: 0.01,
-             ...controls,
-             value,
-           });
-         } else if (name === 'Boolean') {
-           control.push({
-             type: 'bool',
-             name: uniform,
-             ...controls,
-             value,
-           });
-         }
-       });
+       if (program && program.uniforms) {
+         Object.keys(program.uniforms).forEach((uniform) => {
+           const { value, controls } = program.uniforms[uniform];
+           const { name } = value.constructor;
+           const isVector = name === 'Vector2'
+           || name === 'Vector3'
+           || name === 'Vector4';
+
+           if (Array.isArray(value) || isVector) {
+             const normalizedValue = isVector ? value.toArray() : value;
+             control.push({
+               type: 'number',
+               name: uniform,
+               ...controls,
+               value: normalizedValue,
+             });
+           } else if (name === 'Number') {
+             control.push({
+               type: 'slide',
+               name: uniform,
+               min: 0,
+               max: 1,
+               precision: 2,
+               step: 0.01,
+               ...controls,
+               value,
+             });
+           } else if (name === 'Boolean') {
+             control.push({
+               type: 'bool',
+               name: uniform,
+               ...controls,
+               value,
+             });
+           }
+         });
+       }
 
        this.setTitle(title, control);
        this.controls.push(control);
        this.programs.push(program);
+
+       return this.uis[this.controls.length - 1];
      }
 
      initFrom(program) {
@@ -5891,18 +5896,20 @@ var uniformsgui = (function () {
 
      draw() {
        this.uis.forEach((ui, key) => {
-         Object.keys(this.controls[key]).forEach((item) => {
-           const {
-             type, name, value, ...options
-           } = this.controls[key][item];
+         if (this.controls[key].length > 0) {
+           Object.keys(this.controls[key]).forEach((item) => {
+             const {
+               type, name, value, ...options
+             } = this.controls[key][item];
 
-           ui.add(type, {
-             name,
-             ...options,
-             callback: this.update.bind(this, name, this.programs[key]),
-             value,
+             ui.add(type, {
+               name,
+               ...options,
+               callback: this.update.bind(this, name, this.programs[key]),
+               value,
+             });
            });
-         });
+         }
        });
      }
 
