@@ -5812,16 +5812,13 @@ class UniformsGui {
 
   init(options) {
     if (!this.options) this.options = {};
-    const { w, css } = this.options;
-
-    if (!css) {
-      this.options.css = `left: ${((w || 240) + 10) * this.uis.length}px`;
-    }
-
+    const { w, direction } = this.options;
+    this.options.css = `${direction || 'left'}: ${((w || 240) + 10) * this.uis.length + 10}px;`;
+    Object.assign(this.options, options);
     this.uis.push(
       new Gui(Object.assign({
         bg: 'rgba(0,0,0,0.9)',
-      }, options || this.options)),
+      }, this.options)),
     );
   }
 
